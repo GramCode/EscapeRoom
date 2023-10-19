@@ -60,6 +60,7 @@ public class FrameLock : MonoBehaviour
         {
             for(int i = 0;  i < _enteredCode.Length; i++)
             {
+                Debug.Log("Code entered: " + _enteredCode[i]);
                 if (_enteredCode[i] != _lockCode[i])
                     return false;
             }
