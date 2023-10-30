@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class Chains : MonoBehaviour
 {
+    [SerializeField]
+    private Animator _doorAnim;
+    [SerializeField]
+    private GameObject _gameOverCanvas;
+
     private const float TIMETOCUT = 3;
     private bool _canCount = false;
     private bool _coroutineStarted = false;
@@ -35,6 +40,11 @@ public class Chains : MonoBehaviour
     IEnumerator StartTimerRoutine()
     {
         yield return new WaitForSeconds(TIMETOCUT);
+        _gameOverCanvas.SetActive(true);
         gameObject.SetActive(false);
+        _doorAnim.SetTrigger("OpenDoor");
+        GameManager.Instance.LockPlayer();
+        
+
     }
 }

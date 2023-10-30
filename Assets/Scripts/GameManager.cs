@@ -2,9 +2,30 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class GameManager : MonoBehaviour
 {
+    private static GameManager _instance;
+    public static GameManager Instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                Debug.LogError("Instance in Game Manager is NULL");
+            }
+
+            return _instance;
+        }
+    }
+
+    private void Awake()
+    {
+        _instance = this;
+    }
+
     [SerializeField]
     private GameObject[] _lights;
     [SerializeField]
@@ -13,6 +34,8 @@ public class GameManager : MonoBehaviour
     private GameObject _canvas;
     [SerializeField]
     private GameObject[] _pointLights;
+    [SerializeField]
+    private GameObject _player;
 
     public static bool PowerEnabled = false;
 
@@ -109,5 +132,28 @@ public class GameManager : MonoBehaviour
         {
             light.SetActive(false);
         }
+    }
+
+    //Restart the scene
+    public void RestartScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    //Quit the application
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
+
+    public void LockPlayer()
+    {
+        ActionBasedContinuousMoveProvider _continuousMove = _player.GetComponent<ActionBasedContinuousMoveProvider>();
+        ActionBasedSnapTurnProvider _snapTurn = _player.GetComponent<ActionBasedSnapTurnProvider>();
+        TeleportationProvider _teleportProvider = _player.GetComponent<TeleportationProvider>();
+
+        _continuousMove.enabled = false;
+        _snapTurn.enabled = false;
+        _teleportProvider.enabled = false;
     }
 }

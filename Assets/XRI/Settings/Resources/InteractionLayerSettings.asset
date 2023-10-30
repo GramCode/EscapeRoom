@@ -16,7 +16,7 @@ MonoBehaviour:
   - Default
   - Teleport
   - Direct
-  - Picture
+  - 
   - Journal
   - Gaze
   - Key
@@ -25,9 +25,9 @@ MonoBehaviour:
   - LeftHand
   - Mop
   - HandSaw
-  - 
-  - 
-  - 
+  - PictureK
+  - PictureE
+  - PictureY
   - 
   - 
   - 
