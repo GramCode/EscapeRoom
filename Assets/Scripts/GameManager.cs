@@ -138,6 +138,7 @@ public class GameManager : MonoBehaviour
     public void RestartScene()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        PowerEnabled = false;
     }
 
     //Quit the application

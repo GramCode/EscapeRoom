@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class Trash : MonoBehaviour
 {
@@ -29,6 +30,7 @@ public class Trash : MonoBehaviour
             
             _clothesCount++;
             _audioSource.Play();
+            other.gameObject.GetComponent<XRGrabInteractable>().enabled = false;
         }
     }
 
