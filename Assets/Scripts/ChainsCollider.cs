@@ -12,6 +12,7 @@ public class ChainsCollider : MonoBehaviour
         if (other.tag == "HandSaw")
         {
             _chains.StartCounting();
+            _chains.PlayHandSawSound();
         }
     }
 
@@ -20,6 +21,7 @@ public class ChainsCollider : MonoBehaviour
         if (other.tag == "HandSaw")
         {
             _chains.StopCounting();
+            _chains.StopHandSawSound();
         }
     }
 }

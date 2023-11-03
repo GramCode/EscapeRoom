@@ -7,6 +7,8 @@ public class Safe : MonoBehaviour
 {
     [SerializeField]
     private TMP_Text[] _numbersText;
+    [SerializeField]
+    private AudioSource _audioSource;
 
     private Animator _anim;
     
@@ -54,8 +56,7 @@ public class Safe : MonoBehaviour
                 //Color green
                 UIManager.Instance.SafeCanvasBehaviour(0, false);
                 _anim.SetTrigger("SafeAnim");
-                //Disable gaze interaction
-                //Start Safe Animation
+                _audioSource.Play();
             }
             else
             {

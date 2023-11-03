@@ -39,6 +39,7 @@ public class GameManager : MonoBehaviour
 
     public static bool PowerEnabled = false;
 
+
     /// <summary>
     /// Checks if the Power is ON
     /// If the Power is ON
