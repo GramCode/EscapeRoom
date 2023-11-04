@@ -16,10 +16,7 @@ public class Trash : MonoBehaviour
     {
         if (_clothesCount >= 2)
         {
-            //play sound
-            //unlock locker
             _thirdLockerHandleCollider.SetActive(true);
-            
         }
     }
 
@@ -27,18 +24,11 @@ public class Trash : MonoBehaviour
     {
         if (other.tag == "Clothes")
         {
-            
+
             _clothesCount++;
             _audioSource.Play();
             other.gameObject.GetComponent<XRGrabInteractable>().enabled = false;
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.tag == "Clothes")
-        {
-            _clothesCount--;
+            UIManager.Instance.UpdateTrashCount(_clothesCount);
         }
     }
 }

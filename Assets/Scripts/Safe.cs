@@ -9,6 +9,14 @@ public class Safe : MonoBehaviour
     private TMP_Text[] _numbersText;
     [SerializeField]
     private AudioSource _audioSource;
+    [SerializeField]
+    private AudioSource _safeCanvasAudioSource;
+    [SerializeField]
+    private AudioClip[] _audioClips; // 0 = access granted, 1 = access denied
+    [SerializeField]
+    private AudioSource _handleAudioSource;
+    [SerializeField]
+    private AudioSource _doorAudioSource;
 
     private Animator _anim;
     
@@ -24,6 +32,7 @@ public class Safe : MonoBehaviour
         {
             Debug.LogError("Animator in Safe in NULL");
         }
+
     }
 
     private void InsertNumber()
@@ -56,12 +65,18 @@ public class Safe : MonoBehaviour
                 //Color green
                 UIManager.Instance.SafeCanvasBehaviour(0, false);
                 _anim.SetTrigger("SafeAnim");
+                _safeCanvasAudioSource.clip = _audioClips[0];
+                _safeCanvasAudioSource.Play();
                 _audioSource.Play();
+                Invoke("PlayHandleAudio", 1.6f);
+                Invoke("PlayDoorAudio", 1.9f);
             }
             else
             {
                 //Color red
                 UIManager.Instance.SafeCanvasBehaviour(1, true);
+                _safeCanvasAudioSource.clip = _audioClips[1];
+                _safeCanvasAudioSource.Play();
                 Invoke("ClearNumbers", 0.3f);
             }
         }
@@ -81,7 +96,15 @@ public class Safe : MonoBehaviour
         return _inputNumber;
     }
 
+    private void PlayHandleAudio()
+    {
+        _handleAudioSource.Play();
+    }
 
+    private void PlayDoorAudio()
+    {
+        _doorAudioSource.Play();
+    }
 
     public void ClearNumbers()
     {

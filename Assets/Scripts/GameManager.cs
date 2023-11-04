@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour
     }
 
     [SerializeField]
-    private GameObject[] _lights;
+    private GameObject[] _areaLights;
     [SerializeField]
     private GameObject _outsideLight;
     [SerializeField]
@@ -36,6 +36,10 @@ public class GameManager : MonoBehaviour
     private GameObject[] _pointLights;
     [SerializeField]
     private GameObject _player;
+    [SerializeField]
+    private LightsEmission _lightsEmission;
+    [SerializeField]
+    private AudioClip _keyOpenAudioClip;
 
     public static bool PowerEnabled = false;
 
@@ -47,14 +51,16 @@ public class GameManager : MonoBehaviour
     /// Else
     /// Display UI Canvas
     /// </summary>
-    public void LightsOn()
+    public void AreaLightsOn()
     {
         if (PowerEnabled)
         {
-            foreach (var light in _lights)
+            foreach (var light in _areaLights)
             {
                 light.SetActive(true);
             }
+
+            _lightsEmission.AreaLightEmissionEnabled();
 
             UIManager.Instance.CanvasesToDisplayWithLights();
         }
@@ -64,14 +70,16 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void LightsOff()
+    public void AreaLightsOff()
     {
         if (PowerEnabled)
         {
-            foreach (var light in _lights)
+            foreach (var light in _areaLights)
             {
                 light.SetActive(false);
             }
+
+            _lightsEmission.AreaLightEmissionDissabled();
         }
     }
 
@@ -119,6 +127,8 @@ public class GameManager : MonoBehaviour
             {
                 light.SetActive(true);
             }
+
+            _lightsEmission.PointLightsEmissionEnabled();
         }
         else
         {
@@ -133,6 +143,8 @@ public class GameManager : MonoBehaviour
         {
             light.SetActive(false);
         }
+
+        _lightsEmission.PointLightsEmissionDisabled();
     }
 
     //Restart the scene
@@ -157,5 +169,10 @@ public class GameManager : MonoBehaviour
         _continuousMove.enabled = false;
         _snapTurn.enabled = false;
         _teleportProvider.enabled = false;
+    }
+
+    public void PlayKeyLockSound(Transform currentLock)
+    {
+        AudioSource.PlayClipAtPoint(_keyOpenAudioClip, currentLock.position);
     }
 }

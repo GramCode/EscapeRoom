@@ -14,6 +14,8 @@ public class Chains : MonoBehaviour
     private AudioSource _doorAudioSource;
     [SerializeField]
     private AudioSource _handSawAudioSource;
+    [SerializeField]
+    private AudioSource _levelCompletedAudioSource;
 
     private const float TIMETOCUT = 3;
     private bool _canCount = false;
@@ -54,6 +56,7 @@ public class Chains : MonoBehaviour
         GameManager.Instance.LockPlayer();
         
         Invoke("OpenExitDoor", 1.8f);
+        Invoke("LevelCompletedAudio", 3f);
     }
 
     IEnumerator ChainsFlickerRoutine()
@@ -75,6 +78,11 @@ public class Chains : MonoBehaviour
     {
         _doorAnim.SetTrigger("OpenDoor");
         _doorAudioSource.Play();
+    }
+
+    private void LevelCompletedAudio()
+    {
+        _levelCompletedAudioSource.Play();
     }
     public void PlayHandSawSound()
     {

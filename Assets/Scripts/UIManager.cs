@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using TMPro;
 public class UIManager : MonoBehaviour
 {
     private static UIManager _instance;
@@ -36,10 +36,13 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private Image _backgroundImage;
     [SerializeField]
-    private Color[] _colors;
+    private Color[] _colors; // 0 = green, 1 = red, 2 = blue
 
     [SerializeField]
-    private GameObject[] _canvasesToDisplayWithLight;
+    private GameObject[] _canvasToDisplayWithLight;
+
+    [SerializeField]
+    private TMP_Text _trashCountCanvasText;
 
     private void DisableDoorRightCanvas()
     {
@@ -86,9 +89,14 @@ public class UIManager : MonoBehaviour
 
     public void CanvasesToDisplayWithLights()
     {
-        foreach (var canvas in _canvasesToDisplayWithLight)
+        foreach (var canvas in _canvasToDisplayWithLight)
         {
             canvas.SetActive(true);
         }
+    }
+
+    public void UpdateTrashCount(int num)
+    {
+        _trashCountCanvasText.text = num.ToString() + " / 3";
     }
 }
